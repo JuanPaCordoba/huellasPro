@@ -35,7 +35,7 @@
                 <a href="services.html" class="nav-opcion fw-7">Servicios</a>
               </li>
               <li class="nav-item">
-                <a href="contact.html" class="nav-opcion fw-7">Contacto</a>
+                <a href="/#/ContactLanding" class="nav-opcion fw-7">Contacto</a>
               </li>
               <li class="">
                 <a href="login.html" class="nav-link"></a>
@@ -55,9 +55,6 @@
         <a href="#" class="explore-link" @click.prevent="scrollToServices">Explorar</a>
       </div>
     </div>
-
-
-
     <main>
       <section class="sc-services" id="services-section">
         <div class="services-shape">
