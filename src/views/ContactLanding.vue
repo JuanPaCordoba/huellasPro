@@ -51,7 +51,7 @@
             </video>
             <div class="content">
                 <h1>Contacto</h1>
-                <a href="#">EXPLORA</a>
+                <a href="#" class="explore-link" @click.prevent="scrollToServices">Explorar</a>
             </div>
         </div>
         <main>
@@ -212,6 +212,54 @@
     </div>
 </template>
 
-<script></script>
+<script>
+export default {
+  mounted() {
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      document.body.classList.add('resize-animation-stopper');
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        document.body.classList.remove('resize-animation-stopper');
+      }, 400);
+    });
+  },
+  methods: {
+    hideNavbar() {
+      const navbarBox = this.$refs.navbarBox;
+      navbarBox.classList.remove('navbar-box-show');
+    },
+    scrollToServices() {
+      const servicesSection = document.getElementById('services-section');
+      const sectionPosition = servicesSection.getBoundingClientRect().top;
+      const startPosition = window.pageYOffset || document.documentElement.scrollTop;
+      const distance = sectionPosition - startPosition;
+      const duration = 600;
+      let startTime = null;
+
+      function scrollToSection(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const progress = timestamp - startTime;
+        const currentPosition = easeInOutQuad(progress, startPosition, distance, duration);
+        window.scrollTo(0, currentPosition);
+        if (progress < duration) {
+          requestAnimationFrame(scrollToSection);
+        }
+      }
+
+      requestAnimationFrame(scrollToSection);
+    }
+  }
+};
+
+// Función de temporización para una transición suave
+function easeInOutQuad(t, b, c, d) {
+  t /= d / 2;
+  if (t < 1) return c / 2 * t * t + b;
+  t--;
+  return -c / 2 * (t * (t - 2) - 1) + b;
+}
+</script>
+
 <style src="../css/contact.css"></style>
 <style src="../css/utilities.css"></style>
